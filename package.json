@@ -1,0 +1,61 @@
+{
+  "name": "nordnet-release-plugin",
+  "version": "0.0.1",
+  "description": "Nordnet release plugin",
+  "main": "dist/index.js",
+  "scripts": {
+    "coverage": "isparta cover _mocha",
+    "precoveralls": "npm run coverage",
+    "coveralls": "coveralls < coverage/lcov.info",
+    "clean": "trash dist",
+    "build": "babel src --out-dir dist",
+    "eslint": "eslint src test",
+    "jscs": "jscs src test",
+    "lint": "npm-run-all jscs eslint",
+    "test": "mocha",
+    "tdd": "npm test -- --watch",
+    "validate": "npm-run-all lint test",
+    "prepush": "npm run validate",
+    "prepublish": "npm run build",
+    "push": "git push --follow-tags",
+    "postpublish": "npm-run-all clean push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nordnet/nordnet-release-plugin.git"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "Nordnet",
+    "release"
+  ],
+  "author": "Dmitry Demyankov <dmitry.demyankov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nordnet/nordnet-release-plugin/issues"
+  },
+  "homepage": "https://github.com/nordnet/nordnet-release-plugin#readme",
+  "devDependencies": {
+    "babel": "^5.8.20",
+    "babel-eslint": "^4.0.5",
+    "babel-jscs": "^2.0.3",
+    "chai": "^3.2.0",
+    "eslint": "^1.0.0",
+    "eslint-config-airbnb": "^0.0.7",
+    "eslint-plugin-react": "^3.2.0",
+    "isparta": "^3.0.3",
+    "jscs": "^2.0.0",
+    "mocha": "^2.2.5",
+    "npm-run-all": "^1.2.6",
+    "rimraf": "^2.4.2",
+    "sinon": "^1.15.3",
+    "sinon-chai": "^2.7.0",
+    "trash": "^2.0.0",
+    "webpack": "^1.10.5"
+  },
+  "dependencies": {
+    "fs-extra": "^0.22.1",
+    "lodash": "^3.10.1"
+  }
+}
