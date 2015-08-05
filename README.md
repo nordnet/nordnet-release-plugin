@@ -27,6 +27,8 @@ plugins.push(new NordnetReleasePlugin({
 }));
 ```
 
+See [webpack docs][webpack-using-plugins] for more information on how to use plugins with webpack.
+
 Plugin generates `base.js` file that should be included on the page via `<script></script>` tag. Once loaded on the page `base.js` will dynamically inject `<script></script>` tags with links to all required entry points (according to webpack and nordnet-release-plugin settings).
 
 For example, add `<script>` tag on html page where you want to run your Javascript application
@@ -107,7 +109,6 @@ plugins.push(new NordnetReleasePlugin({
 }));
 ```
 
-
 __async__:
 
 `true | false` When set to `true` then scripts will be dynamically injected on the page instead of using `document.write` in `base.json`. Defaults to `false`.
@@ -129,4 +130,5 @@ MIT © [Nordnet Bank AB](https://www.nordnet.se/)
 [depstat-url]: https://david-dm.org/nordnet/nordnet-release-plugin
 [depstat-image]: https://david-dm.org/nordnet/nordnet-release-plugin.svg?style=flat-square
 
+[webpack-using-plugins]: http://webpack.github.io/docs/using-plugins.html
 [require-ensure]: http://webpack.github.io/docs/api-in-modules.html#require-ensure
