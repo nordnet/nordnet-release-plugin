@@ -62,5 +62,5 @@ function contains(array, item) {
 }
 
 function sanitize(path) {
-  return path.endsWith('/') ? path.substring(0, path.length - 1) : path;
+  return _.endsWith(path, '/') ? path.substring(0, path.length - 1) : path;
 }
