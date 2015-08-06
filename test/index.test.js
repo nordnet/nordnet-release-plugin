@@ -149,7 +149,7 @@ describe('nordnet-release-plugin', () => {
 
         testPlugin(webpackConfig, expected(singleEntryPoint, done));
       });
-    });    
+    });
   });
 
   describe('source maps', () => {
