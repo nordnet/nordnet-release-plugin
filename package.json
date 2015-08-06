@@ -47,6 +47,7 @@
     "eslint-plugin-react": "^3.2.0",
     "isparta": "^3.0.3",
     "jscs": "^2.0.0",
+    "jscs-config-nordnet": "0.0.2",
     "mocha": "^2.2.5",
     "npm-run-all": "^1.2.6",
     "rimraf": "^2.4.2",
