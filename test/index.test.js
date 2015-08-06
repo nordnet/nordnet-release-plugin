@@ -149,6 +149,77 @@ describe('nordnet-release-plugin', () => {
 
         testPlugin(webpackConfig, expected(singleEntryPoint, done));
       });
+    });    
+  });
+
+  describe('source maps', () => {
+    describe('hidden-source-map', () => {
+      it('should generate base.js without links to source maps', (done) => {
+        const webpackConfig = {
+          output: {
+            path: OUTPUT_DIR,
+            sourceMapFilename: '[name].map',
+            filename: '[name].js',
+          },
+          devtool: 'hidden-source-map',
+          entry: multipleEntryPoints,
+          plugins: [
+            new NordnetReleasePlugin({
+              publicPath,
+              initDir: OUTPUT_DIR,
+              ignoreChunks: ['vendor'],
+            }),
+          ],
+        };
+
+        testPlugin(webpackConfig, expected(singleEntryPoint, done));
+      });
+    });
+
+    describe('source-map', () => {
+      it('should generate base.js without links to source maps', (done) => {
+        const webpackConfig = {
+          output: {
+            path: OUTPUT_DIR,
+            sourceMapFilename: '[name].map',
+            filename: '[name].js',
+          },
+          devtool: 'source-map',
+          entry: multipleEntryPoints,
+          plugins: [
+            new NordnetReleasePlugin({
+              publicPath,
+              initDir: OUTPUT_DIR,
+              ignoreChunks: ['vendor'],
+            }),
+          ],
+        };
+
+        testPlugin(webpackConfig, expected(singleEntryPoint, done));
+      });
+    });
+
+    describe('inline-source-map', () => {
+      it('should generate base.js without links to source maps', (done) => {
+        const webpackConfig = {
+          output: {
+            path: OUTPUT_DIR,
+            sourceMapFilename: '[name].map',
+            filename: '[name].js',
+          },
+          devtool: 'inline-source-map',
+          entry: multipleEntryPoints,
+          plugins: [
+            new NordnetReleasePlugin({
+              publicPath,
+              initDir: OUTPUT_DIR,
+              ignoreChunks: ['vendor'],
+            }),
+          ],
+        };
+
+        testPlugin(webpackConfig, expected(singleEntryPoint, done));
+      });
     });
   });
 });

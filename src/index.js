@@ -29,7 +29,10 @@ function done(stats) {
 
   const content = Object.keys(chunks)
     .filter(key => !contains(ignore, key))
-    .map(key => injection(`${path}/${chunks[key]}`))
+    .map(key => {
+      const value = _.isArray(chunks[key]) ? chunks[key][0] : chunks[key];
+      return injection(`${path}/${value}`);
+    })
     .join('');
 
   fs.writeFileSync(`${dir}/base.js`, content);
