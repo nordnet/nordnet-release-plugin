@@ -43,6 +43,7 @@
     "chai": "^3.2.0",
     "eslint": "^1.0.0",
     "eslint-config-airbnb": "^0.0.7",
+    "eslint-config-nordnet": "^0.0.3",
     "eslint-plugin-react": "^3.2.0",
     "isparta": "^3.0.3",
     "jscs": "^2.0.0",
