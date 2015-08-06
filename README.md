@@ -9,7 +9,7 @@
 
 ## Purpose
 The purpose of this plugin is to simplify continuous integration with Javascript components in legacy websites.
-By placing a single <script> tag in legacy web it will automatically load latest version of the Javascript component after successful deployment, without requiring any change in the original script tag.
+By placing a single `<script>` tag in legacy web it will automatically load latest version of the Javascript component after successful deployment, without requiring any change in the original script tag.
 
 
 ## Installation
