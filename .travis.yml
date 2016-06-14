@@ -1,7 +1,9 @@
 language: node_js
 node_js:
+  - v6
+  - v5
+  - v4
   - '0.12'
-  - 'iojs-2'
-  - 'iojs-1'
+  - '0.10'
 after_script:
-  - npm run coveralls
+  - 'npm run coveralls'
