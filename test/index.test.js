@@ -7,7 +7,6 @@ import { expect } from 'chai';
 import NordnetReleasePlugin from './../src';
 
 const OUTPUT_DIR = path.join(__dirname, '../temp');
-const outputFile = 'base.js';
 const publicPath = '/sc/project/cache/dev';
 
 const singleEntryPoint = {
@@ -40,7 +39,7 @@ describe('nordnet-release-plugin', () => {
   it('should have apply method', () => expect(NordnetReleasePlugin.prototype.apply).to.be.a('function'));
 
   describe('when single entry point', () => {
-    it('should generate base.js with one entry point', (done) => {
+    it('should generate ${entrypoint}.js for one entry point', (done) => {
       const webpackConfig = {
         output,
         entry: singleEntryPoint,
@@ -52,7 +51,7 @@ describe('nordnet-release-plugin', () => {
   });
 
   describe('when multiple entry points', () => {
-    it('should generate base.js with multiple entry points', (done) => {
+    it('should generate ${entrypoint}.js for multiple entry points', (done) => {
       const webpackConfig = {
         output,
         entry: multipleEntryPoints,
@@ -81,7 +80,7 @@ describe('nordnet-release-plugin', () => {
   });
 
   describe('when async', () => {
-    it('should generage base.js with async injection', (done) => {
+    it('should generage ${entrypoint}.js with async injection', (done) => {
       const webpackConfig = {
         output,
         entry: singleEntryPoint,
@@ -101,7 +100,7 @@ describe('nordnet-release-plugin', () => {
 
   describe('when ignoreChunks', () => {
     describe('require.ensure without ignoreChunks', () => {
-      it('should generate base.js with all chunks', (done) => {
+      it('should generate ${entrypoint}.js with all chunks', (done) => {
         const webpackConfig = {
           output,
           entry: asyncEntryPoint,
@@ -116,7 +115,7 @@ describe('nordnet-release-plugin', () => {
     });
 
     describe('require.ensure with ignoreChunks', () => {
-      it('should generate base.js without ignored chunks', (done) => {
+      it('should generate ${entrypoint}.js without ignored chunks', (done) => {
         const webpackConfig = {
           output,
           entry: asyncEntryPoint,
@@ -134,7 +133,7 @@ describe('nordnet-release-plugin', () => {
     });
 
     describe('multiple entry points with ignored chunks', () => {
-      it('should generate base.js without ignored chunks', (done) => {
+      it('should generate ${entrypoint}.js without ignored chunks', (done) => {
         const webpackConfig = {
           output,
           entry: multipleEntryPoints,
@@ -154,7 +153,7 @@ describe('nordnet-release-plugin', () => {
 
   describe('source maps', () => {
     describe('hidden-source-map', () => {
-      it('should generate base.js without links to source maps', (done) => {
+      it('should generate ${entrypoint}.js without links to source maps', (done) => {
         const webpackConfig = {
           output: {
             path: OUTPUT_DIR,
@@ -177,7 +176,7 @@ describe('nordnet-release-plugin', () => {
     });
 
     describe('source-map', () => {
-      it('should generate base.js without links to source maps', (done) => {
+      it('should generate ${entrypoint}.js without links to source maps', (done) => {
         const webpackConfig = {
           output: {
             path: OUTPUT_DIR,
@@ -200,7 +199,7 @@ describe('nordnet-release-plugin', () => {
     });
 
     describe('inline-source-map', () => {
-      it('should generate base.js without links to source maps', (done) => {
+      it('should generate ${entrypoint}.js without links to source maps', (done) => {
         const webpackConfig = {
           output: {
             path: OUTPUT_DIR,
@@ -225,15 +224,12 @@ describe('nordnet-release-plugin', () => {
 });
 
 function expected(entry, done, async) {
-  const results = Object.keys(entry)
-    .map(key => mapResult(key, async))
-    .join('');
+  const files = Object.keys(entry).map(key => ({
+    file: `${key}.js`,
+    content: mapResult(key, async),
+  }));
 
-  return {
-    done,
-    outputFile,
-    results,
-  };
+  return { done, files };
 }
 
 function mapResult(key, async) {
@@ -263,9 +259,11 @@ function assertPlugin(expectedResults) {
   };
 }
 
-function assertContent(expectedResults) {
-  const content = fs.readFileSync(path.join(OUTPUT_DIR, expectedResults.outputFile)).toString();
-  expect(content).to.equal(expectedResults.results);
+function assertContent({ files }) {
+  files.forEach(({ file, content }) => {
+    const actualContent = fs.readFileSync(path.join(OUTPUT_DIR, file)).toString();
+    expect(actualContent).to.equal(content);
+  });
 }
 
 function assertExpected(actual, expectedResults) {
