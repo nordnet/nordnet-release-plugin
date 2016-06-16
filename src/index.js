@@ -51,7 +51,7 @@ function done(stats) {
 
   Object.keys(chunks)
     .filter(key => !contains(ignore, key))
-    .map(key => {
+    .forEach(key => {
       fs.writeFileSync(`${dir}/${key}.js`, inject(key));
     });
 }
