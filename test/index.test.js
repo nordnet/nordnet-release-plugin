@@ -107,10 +107,7 @@ describe('nordnet-release-plugin', () => {
           plugins: [new NordnetReleasePlugin(options)],
         };
 
-        testPlugin(webpackConfig, expected({
-          async: [path.join(__dirname, '/fixtures/async.js')],
-          '1.index': [path.join(__dirname, '/fixtures/1.index.js')],
-        }, done));
+        testPlugin(webpackConfig, expected(asyncEntryPoint, done));
       });
     });
 
