@@ -50,6 +50,14 @@ document.write('<script charset="UTF-8" src="/sc/project-name/cache/v1/index.js"
 
 Once `index.js` is loaded it will inject `<script>` tag on the page to load application entry point.
 
+**Note:** If you have two entry points, then nordnet-release-plugin will generate two JavaScript files respectively, e.g. `init/contacts.js` and `init/blog.js` for following webpack configuration:
+
+```js
+var entry = {
+  contacts: ['./contacts-page.jsx'],
+  blog: ['./blog-page.jsx'],
+};
+```
 
 ## Configuration
 
