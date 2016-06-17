@@ -34,21 +34,21 @@ plugins.push(new NordnetReleasePlugin({
 
 See [webpack docs][webpack-using-plugins] for more information on how to use plugins with webpack.
 
-Plugin generates `base.js` file that should be included on the page via `<script></script>` tag. Once loaded on the page `base.js` will dynamically inject `<script></script>` tags with links to all required entry points (according to webpack and nordnet-release-plugin settings).
+Plugin generates one Javascript file per entry point defined in Webpack config. These js files can be included on the page via `<script></script>` tag. Once loaded on the page it will dynamically inject `<script></script>` tag with link to an actual required entry point (according to webpack and nordnet-release-plugin settings).
 
 For example, add `<script>` tag on html page where you want to run your Javascript application
 
 ```html
-<script src="init/base.js"></script>
+<script src="init/index.js"></script>
 ```
 
-`base.js` might have the following content (depending on your nordnet-release-plugin and webpack configuration)
+`index.js` might have the following content (depending on your nordnet-release-plugin and webpack configuration)
 
 ```js
 document.write('<script charset="UTF-8" src="/sc/project-name/cache/v1/index.js"></script>');
 ```
 
-Once `base.js` is loaded it will inject `<script>` tag on the page to load application entry point.
+Once `index.js` is loaded it will inject `<script>` tag on the page to load application entry point.
 
 
 ## Configuration
@@ -74,12 +74,12 @@ Location where generated base.js should be saved. Defaults to `'./dist/init'`
 
 __publicPath__:
 
-Path that should be used when creating links to entry points in `base.js` (path where your application is deployed, e.g. '/sc/project-name/cache/v1'). Defaults to `'/'`
+Path that should be used when creating links to entry points (path where your application is deployed, e.g. '/sc/project-name/cache/v1'). Defaults to `'/'`
 
 __ignoreChunks__:
 
-Array with chunk names that should be ignored and excluded from `base.json`. Defaults to empty array.
-If your application has multiple entry points and for some reason you want to exclude some of them from being included in `base.js` then pass entry point names (as configured in webpack) to `ignoreChunks` array.
+Array with chunk names that should be ignored. Defaults to empty array.
+If your application has multiple entry points and for some reason you want to exclude some of them then pass entry point names (as configured in webpack) to `ignoreChunks` array.
 
 ```js
 var entryPoints = {
@@ -93,7 +93,7 @@ plugins.push(new NordnetReleasePlugin({
 
 ```
 
-If you are using `require.ensure()` to create split points and want to make sure that all of them don't end up in `base.js` then consider using set up describe below.
+If you are using `require.ensure()` to create split points and want to make sure that all of them don't end up in `.js` for your entry point then consider using set up describe below.
 
 Define a code split point using `require.ensure` and provide a chunk name, see [require.ensure][require-ensure] for more details
 
@@ -116,7 +116,7 @@ plugins.push(new NordnetReleasePlugin({
 
 __async__:
 
-`true | false` When set to `true` then scripts will be dynamically injected on the page instead of using `document.write` in `base.json`. Defaults to `false`.
+`true | false` When set to `true` then scripts will be dynamically injected on the page instead of using `document.write`. Defaults to `false`.
 
 
 ## License
