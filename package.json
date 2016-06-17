@@ -7,7 +7,7 @@
     "coverage": "isparta cover _mocha",
     "precoveralls": "npm run coverage",
     "coveralls": "coveralls < coverage/lcov.info",
-    "clean": "trash dist",
+    "clean": "rimraf dist",
     "build": "babel src --out-dir dist",
     "eslint": "eslint src test",
     "jscs": "jscs src test",
@@ -50,10 +50,9 @@
     "jscs-config-nordnet": "0.0.2",
     "mocha": "^2.2.5",
     "npm-run-all": "^1.2.6",
-    "rimraf": "^2.4.2",
     "sinon": "^1.15.3",
     "sinon-chai": "^2.7.0",
-    "trash": "^2.0.0",
+    "rimraf": "^2.5.2",
     "webpack": "^1.10.5"
   },
   "dependencies": {

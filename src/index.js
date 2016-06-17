@@ -49,10 +49,9 @@ function done(stats) {
     fs.mkdirsSync(dir);
   }
 
-  const content = Object.keys(chunks)
+  Object.keys(chunks)
     .filter(key => !contains(ignore, key))
-    .map(key => inject(key))
-    .join('');
-
-  fs.writeFileSync(`${dir}/base.js`, content);
+    .forEach(key => {
+      fs.writeFileSync(`${dir}/${key}.js`, inject(key));
+    });
 }
